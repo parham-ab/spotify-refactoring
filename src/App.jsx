@@ -8,7 +8,7 @@ import Favorites from "./components/Favorites";
 import ContactUs from "./components/ContactUs";
 import AboutUs from "./components/AboutUs";
 // context
-import SpotifyContextProvider from "./contexts/SpotifyContextProvider";
+import SpotifyContextProvider from "./contexts/SpotifyContextProvider.jsx";
 
 const App = () => {
   return (
