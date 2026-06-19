@@ -1,6 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
+import { useContext, useEffect, useState } from "react";
 // icons
 import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
@@ -25,7 +23,7 @@ const Header = () => {
   // readable song time function
   const readableTime = (time) => {
     return `${Math.trunc(time / 60)} : ${("0" + Math.trunc(time % 60)).slice(
-      -2
+      -2,
     )}`;
   };
   // playing song
@@ -62,15 +60,15 @@ const Header = () => {
   return (
     <header className="header-container">
       <div className="container">
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="flex justify-between items-center">
           {currentSong.length ? (
             currentSong.map((item) => (
-              <div className="d-flex align-items-center m-auto" key={item.id}>
+              <div className="flex items-center m-auto" key={item.id}>
                 {/* cover */}
-                <div className="d-none d-sm-block m-4">
+                <div className="hidden sm:block m-4">
                   <div
                     key={item.id}
-                    className="song-cover d-flex align-items-center justify-content-center"
+                    className="song-cover flex items-center justify-center"
                     style={{ backgroundImage: `url(${item.cover})` }}
                   >
                     <div onClick={() => playHandle(item.id)}>
@@ -84,7 +82,7 @@ const Header = () => {
                 </div>
                 {/* song info */}
                 <div>
-                  <div className="d-flex justify-content-between">
+                  <div className="flex justify-between">
                     <div>
                       <h3>{item.title}</h3>
                       <h6>{item.singer}</h6>
@@ -99,7 +97,7 @@ const Header = () => {
                     </div>
                   </div>
                   <div className="song-range-time">
-                    <div className="d-flex align-items-center justify-content-between">
+                    <div className="flex items-center justify-between">
                       <span className="song-time current-time">
                         {readableTime(songTimeLive)}
                       </span>
@@ -130,18 +128,18 @@ const Header = () => {
                       />
                     </div>
                   </div>
-                  <div className="mt-4 header-btn-handler d-flex align-items-center">
+                  <div className="mt-4 header-btn-handler flex items-center">
                     <div onClick={prevSongHandle}>
                       <FaChevronLeft />
                     </div>
-                    <OverlayTrigger
+                    {/* <OverlayTrigger
                       placement="bottom"
                       overlay={
                         <Tooltip id="tooltip-top">
                           {item.isPlaying ? "Pause" : "Play"}
                         </Tooltip>
                       }
-                    >
+                    > */}
                       <div onClick={() => playHandle(item.id)}>
                         {item.isPlaying ? (
                           <BsPauseFill
@@ -153,7 +151,7 @@ const Header = () => {
                           />
                         )}
                       </div>
-                    </OverlayTrigger>
+                    {/* </OverlayTrigger> */}
                     <div onClick={nextSongHandle}>
                       <FaChevronRight />
                     </div>
@@ -162,21 +160,18 @@ const Header = () => {
               </div>
             ))
           ) : (
-            <div
-              className="d-flex align-items-center m-auto"
-              key={defaultSong.id}
-            >
+            <div className="flex items-center m-auto" key={defaultSong.id}>
               {/* cover */}
-              <div className="d-none d-sm-block m-4">
+              <div className="hidden sm:block m-4">
                 <div
                   key={defaultSong.id}
-                  className="song-cover d-flex align-items-center justify-content-center"
+                  className="song-cover flex items-center justify-center"
                   style={{ backgroundImage: `url(${defaultSong.cover})` }}
                 ></div>
               </div>
               {/* song info */}
               <div>
-                <div className="d-flex justify-content-between">
+                <div className="flex justify-between">
                   <div>
                     <h3>{defaultSong.title}</h3>
                     <h6>{defaultSong.singer}</h6>
@@ -191,7 +186,7 @@ const Header = () => {
                   </div>
                 </div>
                 <div className="song-range-time">
-                  <div className="d-flex align-items-center justify-content-between">
+                  <div className="flex items-center justify-between">
                     <span className="song-time current-time">0 : 00</span>
                     <span className="song-time full-time">0 : 00</span>
                   </div>

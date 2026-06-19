@@ -17,24 +17,24 @@ const Favorites = () => {
   useTitle("React Spotify - ❤");
 
   return (
-    <div className="col-6 col-sm-7 col-md-9" style={{ overflow: "auto" }}>
+    <div className="col-span-6 col-sm-7 col-md-9 overflow-auto">
       {favoriteSelections.length ? (
         favoriteSelections.map((item) => (
           <div
             key={item.id}
             className={
               item.active
-                ? "songLists d-flex align-items-center justify-content-between p-3 m-3 active-item"
-                : "songLists d-flex align-items-center justify-content-between p-3 m-3"
+                ? "songLists flex items-center justify-between p-3 m-3 active-item"
+                : "songLists flex items-center justify-between p-3 m-3"
             }
           >
-            <div className="d-flex align-items-center">
+            <div className="flex items-center">
               <div
                 onClick={() => playHandle(item.id)}
                 className={
                   item.active
-                    ? "song-list-cover d-sm-block d-none spinner"
-                    : "song-list-cover d-sm-block d-none"
+                    ? "song-list-cover sm:block hidden spinner"
+                    : "song-list-cover sm:block hidden"
                 }
                 style={{
                   backgroundImage: `url(${item.cover})`,
@@ -42,19 +42,15 @@ const Favorites = () => {
                 }}
               ></div>
               <div
-                className="song-list-info d-flex align-items-center flex-column p-2"
+                className="song-list-info flex items-center flex-col p-2"
                 onClick={() => playHandle(item.id)}
               >
-                <h4 className="fw-bold" style={{ wordBreak: "break-all" }}>
-                  {item.title}
-                </h4>
-                <p className="text-success" style={{ wordBreak: "break-all" }}>
-                  {item.singer}
-                </p>
+                <h4 className="font-bold break-all">{item.title}</h4>
+                <p className="text-success break-all">{item.singer}</p>
               </div>
             </div>
             <div
-              className="song-list-options d-none d-sm-block"
+              className="song-list-options hidden sm:block"
               onClick={() => toggleFavorite(item.id)}
             >
               {item.isFavorite ? (

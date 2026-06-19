@@ -11,36 +11,34 @@ const Song = ({ item }) => {
     <div
       className={
         item.active
-          ? "songLists d-flex align-items-center justify-content-between p-3 m-3 active-item"
-          : "songLists d-flex align-items-center justify-content-between p-3 m-3"
+          ? "songLists flex items-center justify-between p-3 m-3 active-item"
+          : "songLists flex items-center justify-between p-3 m-3"
       }
     >
-      <div className="d-flex align-items-center">
+      <div className="flex items-center">
         <div
           onClick={() => playHandle(item.id)}
           className={
             item.active
-              ? "song-list-cover d-sm-block d-none spinner"
-              : "song-list-cover d-sm-block d-none"
+              ? "song-list-cover sm:block hidden cursor-pointer spinner"
+              : "song-list-cover sm:block hidden cursor-pointer"
           }
-          style={{ backgroundImage: `url(${item.cover})`, cursor: "pointer" }}
+          style={{ backgroundImage: `url(${item.cover})` }}
         ></div>
-        <div className="song-list-info d-flex align-items-center flex-column p-2">
+        <div className="song-list-info flex items-center flex-col p-2">
           <h4
-            className="fw-bold"
+            className="font-bold"
             style={{ wordBreak: "break-all" }}
             onClick={() => playHandle(item.id)}
           >
             {item.title}
           </h4>
-          <p className="text-success" style={{ wordBreak: "break-all" }}>
-            {item.singer}
-          </p>
+          <p className="text-success break-all">{item.singer}</p>
         </div>
       </div>
 
       <div
-        className="song-list-options d-none d-sm-block"
+        className="song-list-options hidden sm:block"
         onClick={() => toggleFavorite(item.id)}
       >
         {item.isFavorite ? (

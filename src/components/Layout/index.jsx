@@ -1,6 +1,6 @@
-// components
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import Footer from "./Footer";
 
 const Layout = ({ children }) => {
   return (
@@ -10,6 +10,7 @@ const Layout = ({ children }) => {
         <Sidebar />
         {children}
       </div>
+      <Footer />
     </>
   );
 };

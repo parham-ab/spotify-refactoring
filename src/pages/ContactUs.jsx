@@ -10,8 +10,8 @@ const ContactUs = () => {
   useTitle("React Spotify - 📫");
 
   return (
-    <section className="d-flex flex-row justify-content-center align-items-center m-auto">
-      <p className="col-5 d-none d-sm-block info-box shadow">
+    <section className="flex flex-row justify-center items-center m-auto">
+      <p className="col-span-5 hidden sm:block info-box shadow">
         I hope you enjoyed the site. I have prepared a box for you that you can
         contact me. I'll be happy if you send me your suggestions, comments,
         criticisms & job offers .

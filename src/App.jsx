@@ -2,6 +2,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import routes from "./routes/index.jsx";
 import Layout from "./components/Layout";
 import SpotifyContextProvider from "./contexts/SpotifyContextProvider.jsx";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/*" element={<Navigate to="/songs" />} />
         </Routes>
       </Layout>
+      <Toaster position="top-center" reverseOrder={false} />
     </SpotifyContextProvider>
   );
 };

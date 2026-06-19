@@ -1,6 +1,4 @@
 import React, { createContext, useRef, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 // song
 import song1 from "../assets/music/taylor-style.mp3";
 import song2 from "../assets/music/Ellie-Goulding-Hate-Me.mp3";
@@ -9,6 +7,7 @@ import song3 from "../assets/music/lana-ulteraviolet.mp3";
 import pic1 from "../assets/img/taylor.jfif";
 import pic2 from "../assets/img/ellie.jfif";
 import pic3 from "../assets/img/lana.jfif";
+import toast from "react-hot-toast";
 // context
 export const SpotifyContext = createContext();
 
@@ -162,7 +161,6 @@ const SpotifyContextProvider = ({ children }) => {
       {/* song source */}
       <audio ref={songTrack} onEnded={nextSongHandle}></audio>
       {children}
-      <ToastContainer />
     </SpotifyContext.Provider>
   );
 };

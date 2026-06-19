@@ -24,15 +24,10 @@ const Sidebar = () => {
       icon: <IoMdContact className="m-1" />,
       menuText: "Contact us",
     },
-    {
-      path: "/about-us",
-      icon: <BsFillInfoCircleFill className="m-1" />,
-      menuText: "About us",
-    },
   ];
   return (
     <aside className="aside-container h-100 shadow-lg">
-      <div className="d-flex align-items-center p-3">
+      <div className="flex items-center p-3">
         <BsSpotify
           style={{
             fontSize: "27px",
