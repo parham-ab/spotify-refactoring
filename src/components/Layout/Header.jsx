@@ -1,9 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-// icons
 import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
-// context
 import { SpotifyContext } from "../../contexts/SpotifyContextProvider";
 
 const Header = () => {
@@ -16,17 +14,15 @@ const Header = () => {
     nextSongHandle,
     prevSongHandle,
   } = useContext(SpotifyContext);
+
   const [defaultSong, setDefaultSong] = useState([]);
   const [changed, setChanged] = useState(false);
   const [songTimeLive, setSongTimeLive] = useState(0);
   const [songTimeFull, setSongTimeFull] = useState(0);
-  // readable song time function
-  const readableTime = (time) => {
-    return `${Math.trunc(time / 60)} : ${("0" + Math.trunc(time % 60)).slice(
-      -2,
-    )}`;
-  };
-  // playing song
+
+  const readableTime = (time) =>
+    `${Math.trunc(time / 60)}:${("0" + Math.trunc(time % 60)).slice(-2)}`;
+
   useEffect(() => {
     if (!currentSong.length) {
       const intendedSong = songData.find((item) => item.title === "Style");
@@ -42,163 +38,130 @@ const Header = () => {
       setSongTimeFull(songTrack.current.duration);
     }, 1000);
   }, [currentSong]);
-  // play song
+
   const playHandle = (id) => {
     const songIndex = songData.findIndex((item) => item.id === id);
     const newSongData = [...songData];
     newSongData[songIndex].isPlaying = !newSongData[songIndex].isPlaying;
     if (newSongData[songIndex].isPlaying) {
       songTrack.current.play();
-      setChanged(!changed);
-      return;
     } else {
       songTrack.current.pause();
-      setChanged(!changed);
     }
+    setChanged(!changed);
   };
 
-  return (
-    <header className="header-container">
-      <div className="container">
-        <div className="flex justify-between items-center">
-          {currentSong.length ? (
-            currentSong.map((item) => (
-              <div className="flex items-center m-auto" key={item.id}>
-                {/* cover */}
-                <div className="hidden sm:block m-4">
-                  <div
-                    key={item.id}
-                    className="song-cover flex items-center justify-center"
-                    style={{ backgroundImage: `url(${item.cover})` }}
-                  >
-                    <div onClick={() => playHandle(item.id)}>
-                      {item.isPlaying ? (
-                        <BsPauseFill className="main-status-icon" />
-                      ) : (
-                        <BsPlayFill className="main-status-icon" />
-                      )}
-                    </div>
-                  </div>
-                </div>
-                {/* song info */}
-                <div>
-                  <div className="flex justify-between">
-                    <div>
-                      <h3>{item.title}</h3>
-                      <h6>{item.singer}</h6>
-                    </div>
-                    {/* favorite button */}
-                    <div onClick={() => toggleFavorite(item.id)}>
-                      {item.isFavorite ? (
-                        <MdFavorite className="favorite-toggle" />
-                      ) : (
-                        <MdOutlineFavoriteBorder className="favorite-toggle" />
-                      )}
-                    </div>
-                  </div>
-                  <div className="song-range-time">
-                    <div className="flex items-center justify-between">
-                      <span className="song-time current-time">
-                        {readableTime(songTimeLive)}
-                      </span>
-                      <span className="song-time full-time">
-                        {isNaN(songTimeFull)
-                          ? "0 : 00"
-                          : readableTime(songTimeFull)}
-                      </span>
-                    </div>
-                    <div className="song-tape">
-                      <div
-                        className="progress"
-                        style={{
-                          width: `${(songTimeLive / songTimeFull) * 100}%`,
-                        }}
-                      ></div>
-                      <input
-                        type="range"
-                        step={1}
-                        min={0}
-                        max={isNaN(songTimeFull) ? 100 : songTimeFull}
-                        value={songTimeLive}
-                        onChange={(e) =>
-                          (songTrack.current.currentTime = e.target.value)
-                        }
-                        className="w-100"
-                        style={{ cursor: "pointer" }}
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-4 header-btn-handler flex items-center">
-                    <div onClick={prevSongHandle}>
-                      <FaChevronLeft />
-                    </div>
-                    {/* <OverlayTrigger
-                      placement="bottom"
-                      overlay={
-                        <Tooltip id="tooltip-top">
-                          {item.isPlaying ? "Pause" : "Play"}
-                        </Tooltip>
-                      }
-                    > */}
-                      <div onClick={() => playHandle(item.id)}>
-                        {item.isPlaying ? (
-                          <BsPauseFill
-                            style={{ margin: "0 10px", fontSize: "25px" }}
-                          />
-                        ) : (
-                          <BsPlayFill
-                            style={{ margin: "0 10px", fontSize: "25px" }}
-                          />
-                        )}
-                      </div>
-                    {/* </OverlayTrigger> */}
-                    <div onClick={nextSongHandle}>
-                      <FaChevronRight />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="flex items-center m-auto" key={defaultSong.id}>
-              {/* cover */}
-              <div className="hidden sm:block m-4">
-                <div
-                  key={defaultSong.id}
-                  className="song-cover flex items-center justify-center"
-                  style={{ backgroundImage: `url(${defaultSong.cover})` }}
-                ></div>
-              </div>
-              {/* song info */}
-              <div>
-                <div className="flex justify-between">
-                  <div>
-                    <h3>{defaultSong.title}</h3>
-                    <h6>{defaultSong.singer}</h6>
-                  </div>
-                  {/* favorite button */}
-                  <div onClick={() => toggleFavorite(defaultSong.id)}>
-                    {defaultSong.isFavorite ? (
-                      <MdFavorite className="favorite-toggle" />
-                    ) : (
-                      <MdOutlineFavoriteBorder className="favorite-toggle" />
-                    )}
-                  </div>
-                </div>
-                <div className="song-range-time">
-                  <div className="flex items-center justify-between">
-                    <span className="song-time current-time">0 : 00</span>
-                    <span className="song-time full-time">0 : 00</span>
-                  </div>
-                  <div className="song-tape">
-                    <input type="range" className="w-100" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+  const progressPercent = songTimeFull
+    ? (songTimeLive / songTimeFull) * 100
+    : 0;
+
+  const SongDisplay = ({ item, isActive }) => (
+    <div className="flex items-center gap-6 w-full px-6 py-4">
+      {/* Album cover */}
+      <div className="hidden sm:block shrink-0">
+        <div
+          className="w-16 h-16 rounded-lg bg-cover bg-center bg-zinc-900 shadow-lg"
+          style={{ backgroundImage: `url(${item?.cover})` }}
+        />
+      </div>
+
+      {/* Title + singer */}
+      <div className="flex flex-col min-w-0 w-36 shrink-0">
+        <p className="text-white text-sm font-semibold truncate">
+          {item?.title ?? "—"}
+        </p>
+        <p className="text-zinc-500 text-xs mt-0.5 truncate">
+          {item?.singer ?? "—"}
+        </p>
+      </div>
+
+      {/* Controls + scrubber — center */}
+      <div className="flex flex-col items-center gap-2 flex-1 min-w-0">
+        {/* Playback buttons */}
+        {isActive && (
+          <div className="flex items-center gap-5">
+            <button
+              onClick={prevSongHandle}
+              className="text-zinc-500 hover:text-white transition-colors duration-150"
+            >
+              <FaChevronLeft className="text-sm" />
+            </button>
+            <button
+              onClick={() => playHandle(item.id)}
+              className="w-9 h-9 rounded-full bg-white flex items-center justify-center shadow-md"
+            >
+              {item.isPlaying ? (
+                <BsPauseFill className="text-black text-base" />
+              ) : (
+                <BsPlayFill className="text-black text-base ml-0.5" />
+              )}
+            </button>
+            <button
+              onClick={nextSongHandle}
+              className="text-zinc-500 hover:text-white transition-colors duration-150"
+            >
+              <FaChevronRight className="text-sm" />
+            </button>
+          </div>
+        )}
+
+        {/* Scrubber */}
+        <div className="w-full flex items-center gap-3">
+          <span className="text-[10px] text-zinc-600 tabular-nums shrink-0">
+            {isActive ? readableTime(songTimeLive) : "0:00"}
+          </span>
+          <div className="relative flex-1 h-1 rounded-full bg-zinc-800 group">
+            <div
+              className="absolute top-0 left-0 h-full bg-[#1DB954] rounded-full pointer-events-none"
+              style={{ width: `${progressPercent}%` }}
+            />
+            {isActive && (
+              <input
+                type="range"
+                step={1}
+                min={0}
+                max={isNaN(songTimeFull) ? 100 : songTimeFull}
+                value={songTimeLive}
+                onChange={(e) =>
+                  (songTrack.current.currentTime = e.target.value)
+                }
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              />
+            )}
+          </div>
+          <span className="text-[10px] text-zinc-600 tabular-nums shrink-0">
+            {isActive && !isNaN(songTimeFull)
+              ? readableTime(songTimeFull)
+              : "0:00"}
+          </span>
         </div>
       </div>
+
+      {/* Favorite */}
+      <div className="shrink-0">
+        <button
+          onClick={() => toggleFavorite(item?.id)}
+          className="transition-transform duration-150 hover:scale-110"
+        >
+          {item?.isFavorite ? (
+            <MdFavorite className="text-[#1DB954] text-xl" />
+          ) : (
+            <MdOutlineFavoriteBorder className="text-zinc-600 hover:text-zinc-300 text-xl transition-colors" />
+          )}
+        </button>
+      </div>
+    </div>
+  );
+
+  return (
+    <header className="bg-black border-b border-white/[0.06] w-full">
+      {currentSong.length ? (
+        currentSong.map((item) => (
+          <SongDisplay key={item.id} item={item} isActive={true} />
+        ))
+      ) : (
+        <SongDisplay item={defaultSong} isActive={false} />
+      )}
     </header>
   );
 };

@@ -50,7 +50,7 @@ const Sidebar = () => {
       {/* Bottom divider + footer hint */}
       <div className="mt-auto px-3">
         <div className="h-px bg-white/10 mb-4" />
-        <p className="text-[11px] text-zinc-600 leading-relaxed">
+        <p className="text-[11px] text-zinc-400 leading-relaxed">
           © 2026 Spotify Clone
         </p>
       </div>
