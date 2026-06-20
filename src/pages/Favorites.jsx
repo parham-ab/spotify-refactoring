@@ -17,7 +17,7 @@ const Favorites = () => {
   useTitle("React Spotify - ❤");
 
   return (
-    <div className="col-span-6 col-sm-7 col-md-9 overflow-auto">
+    <div className="col-span-6 sm:col-span-7 md:col-span-9 overflow-auto">
       {favoriteSelections.length ? (
         favoriteSelections.map((item) => (
           <div

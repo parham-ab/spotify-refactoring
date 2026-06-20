@@ -12,7 +12,7 @@ const SongsList = () => {
   useTitle("React Spotify");
 
   return (
-    <div className="col-md-9 col-sm-7 col-span-6 overflow-auto">
+    <div className="md:col-span-9 sm:col-span-7 col-span-6 overflow-auto">
       {songData?.map((item) => (
         <Song item={item} key={item.id} />
       ))}

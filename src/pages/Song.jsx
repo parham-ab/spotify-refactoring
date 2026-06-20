@@ -11,8 +11,8 @@ const Song = ({ item }) => {
     <div
       className={
         item.active
-          ? "songLists flex items-center justify-between p-3 m-3 active-item"
-          : "songLists flex items-center justify-between p-3 m-3"
+          ? "songLists flex items-center justify-between p-1 m-1 active-item"
+          : "songLists flex items-center justify-between p-1 m-1"
       }
     >
       <div className="flex items-center">
