@@ -1,52 +1,58 @@
 import { useContext } from "react";
-// context
 import { SpotifyContext } from "../contexts/SpotifyContextProvider";
-// icons
 import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
+import { BsPlayFill, BsPauseFill } from "react-icons/bs";
 
 const Song = ({ item }) => {
-  const { playHandle, toggleFavorite } = useContext(SpotifyContext);
-
+  const { playHandle, toggleFavorite, songTrack } = useContext(SpotifyContext);
   return (
     <div
-      className={
-        item.active
-          ? "songLists flex items-center justify-between p-1 m-1 active-item"
-          : "songLists flex items-center justify-between p-1 m-1"
-      }
+      className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer group transition-colors duration-150
+        ${item.active ? "bg-white/10" : "hover:bg-white/5"}`}
+      onClick={() => playHandle(item.id)}
     >
-      <div className="flex items-center">
+      {/* Left: cover + info */}
+      <div className="flex items-center gap-3 min-w-0">
+        {/* Cover */}
         <div
-          onClick={() => playHandle(item.id)}
-          className={
-            item.active
-              ? "song-list-cover sm:block hidden cursor-pointer spinner"
-              : "song-list-cover sm:block hidden cursor-pointer"
-          }
-          style={{ backgroundImage: `url(${item.cover})` }}
+          className={`relative hidden sm:block w-12 h-12 rounded-full bg-cover bg-center shrink-0 bg-zinc-900 ${item.active ? "animate-spin" : ""}`}
+          style={{
+            backgroundImage: `url(${item.cover})`,
+            animationDuration: "8s",
+          }}
         ></div>
-        <div className="song-list-info flex items-center flex-col p-2">
-          <h4
-            className="font-bold"
-            style={{ wordBreak: "break-all" }}
-            onClick={() => playHandle(item.id)}
+
+        {/* Title + singer */}
+        <div
+          className="flex flex-col min-w-0"
+          onClick={() => playHandle(item.id)}
+        >
+          <span
+            className={`text-sm font-medium truncate leading-tight
+              ${item.active ? "text-[#1DB954]" : "text-white"}`}
           >
             {item.title}
-          </h4>
-          <p className="text-success break-all">{item.singer}</p>
+          </span>
+          <span className="text-xs text-zinc-500 truncate mt-0.5">
+            {item.singer}
+          </span>
         </div>
       </div>
 
-      <div
-        className="song-list-options hidden sm:block"
-        onClick={() => toggleFavorite(item.id)}
+      {/* Right: favorite */}
+      <button
+        onClick={(e) => {
+          toggleFavorite(item.id);
+          e.stopPropagation();
+        }}
+        className="shrink-0 ml-3 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all duration-150 hover:scale-110"
       >
         {item.isFavorite ? (
-          <MdFavorite style={{ color: "#df5a5a" }} />
+          <MdFavorite className="text-[#1DB954] text-lg" />
         ) : (
-          <MdOutlineFavoriteBorder style={{ color: "#df5a5a" }} />
+          <MdOutlineFavoriteBorder className="text-zinc-600 hover:text-zinc-300 text-lg transition-colors" />
         )}
-      </div>
+      </button>
     </div>
   );
 };

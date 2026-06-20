@@ -60,7 +60,7 @@ const Header = () => {
       {/* Album cover */}
       <div className="hidden sm:block shrink-0">
         <div
-          className="w-16 h-16 rounded-lg bg-cover bg-center bg-zinc-900 shadow-lg"
+          className="w-30 h-30 rounded-lg bg-cover bg-center bg-zinc-900 shadow-lg"
           style={{ backgroundImage: `url(${item?.cover})` }}
         />
       </div>
@@ -156,7 +156,7 @@ const Header = () => {
   return (
     <header className="bg-black border-b border-white/[0.06] w-full">
       {currentSong.length ? (
-        currentSong.map((item) => (
+        currentSong?.map((item) => (
           <SongDisplay key={item.id} item={item} isActive={true} />
         ))
       ) : (

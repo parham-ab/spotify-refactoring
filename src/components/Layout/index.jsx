@@ -8,10 +8,7 @@ const Layout = ({ children }) => {
       <Header className="lg:col-span-2 md:col-span-3" />
       <div className="flex h-[60vh]">
         <Sidebar />
-        <div className="w-full">
-
-        {children}
-        </div>
+        <div className="w-full">{children}</div>
       </div>
       <Footer />
     </>
