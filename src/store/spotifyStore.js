@@ -1,4 +1,3 @@
-// store/useSpotifyStore.js
 import { create } from "zustand";
 import toast from "react-hot-toast";
 import song1 from "../assets/music/taylor-style.mp3";
@@ -47,11 +46,13 @@ const useSpotifyStore = create((set, get) => ({
 
   getCurrentSong: () => get().songData.filter((item) => item.active),
   setSongTrack: (audioEl) => set({ songTrack: audioEl }),
+
   playHandle: (id) => {
     const { songData, songTrack } = get();
     const target = songData.find((item) => item.id === id);
-    const isAlreadyActive = target.active;
-    if (isAlreadyActive) {
+
+    // same song → toggle
+    if (target.active) {
       if (target.isPlaying) {
         songTrack.pause();
       } else {
@@ -65,22 +66,27 @@ const useSpotifyStore = create((set, get) => ({
       return;
     }
 
+    set({
+      songData: songData.map((item) => ({
+        ...item,
+        active: item.id === id,
+        isPlaying: false,
+      })),
+    });
+
     songTrack.src = target.track;
     songTrack.load();
 
     const onCanPlay = () => {
       songTrack.play();
       songTrack.removeEventListener("canplay", onCanPlay);
+      set({
+        songData: get().songData.map((item) =>
+          item.id === id ? { ...item, isPlaying: true } : item,
+        ),
+      });
     };
     songTrack.addEventListener("canplay", onCanPlay);
-
-    set({
-      songData: songData.map((item) => ({
-        ...item,
-        active: item.id === id,
-        isPlaying: item.id === id,
-      })),
-    });
   },
 
   toggleFavorite: (id) => {
@@ -108,20 +114,28 @@ const useSpotifyStore = create((set, get) => ({
     const index = songData.findIndex((item) => item.id === current[0].id);
     const nextIdx = index === songData.length - 1 ? 0 : index + 1;
     const next = songData[nextIdx];
-    songTrack.src = next.track; // or prev.track
-    songTrack.load();
-    const onCanPlay = () => {
-      songTrack.play();
-      songTrack.removeEventListener("canplay", onCanPlay);
-    };
-    songTrack.addEventListener("canplay", onCanPlay);
+
     set({
       songData: songData.map((item) => ({
         ...item,
         active: item.id === next.id,
-        isPlaying: item.id === next.id,
+        isPlaying: false,
       })),
     });
+
+    songTrack.src = next.track;
+    songTrack.load();
+
+    const onCanPlay = () => {
+      songTrack.play();
+      songTrack.removeEventListener("canplay", onCanPlay);
+      set({
+        songData: get().songData.map((item) =>
+          item.id === next.id ? { ...item, isPlaying: true } : item,
+        ),
+      });
+    };
+    songTrack.addEventListener("canplay", onCanPlay);
   },
 
   prevSongHandle: () => {
@@ -131,15 +145,28 @@ const useSpotifyStore = create((set, get) => ({
     const index = songData.findIndex((item) => item.id === current[0].id);
     const prevIdx = index === 0 ? songData.length - 1 : index - 1;
     const prev = songData[prevIdx];
-    songTrack.src = prev.track;
-    songTrack.play();
+
     set({
       songData: songData.map((item) => ({
         ...item,
         active: item.id === prev.id,
-        isPlaying: item.id === prev.id,
+        isPlaying: false,
       })),
     });
+
+    songTrack.src = prev.track;
+    songTrack.load();
+
+    const onCanPlay = () => {
+      songTrack.play();
+      songTrack.removeEventListener("canplay", onCanPlay);
+      set({
+        songData: get().songData.map((item) =>
+          item.id === prev.id ? { ...item, isPlaying: true } : item,
+        ),
+      });
+    };
+    songTrack.addEventListener("canplay", onCanPlay);
   },
 }));
 

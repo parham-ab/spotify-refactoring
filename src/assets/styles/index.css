@@ -23,16 +23,11 @@
   ::-webkit-scrollbar {
     width: 6px;
   }
-
   ::-webkit-scrollbar-track {
     background-color: transparent;
   }
-
   ::-webkit-scrollbar-thumb {
     background-color: #090420;
     border-radius: 5px;
   }
-}
-
-@layer components {
 }

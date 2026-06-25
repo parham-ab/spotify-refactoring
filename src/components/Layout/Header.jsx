@@ -20,9 +20,9 @@ const SongDisplay = ({
     `${Math.trunc(time / 60)}:${("0" + Math.trunc(time % 60)).slice(-2)}`;
 
   return (
-    <div className="flex items-center gap-6 w-full sm:p-5 p-2.5">
+    <div className="flex items-center sm:gap-6 gap-3 w-full sm:p-5 p-2.5">
       {/* Album cover */}
-      <div className="hidden sm:block shrink-0">
+      <div className="hidden sm:block">
         <div
           className="relative w-16 h-16 rounded-lg bg-cover bg-center bg-zinc-900 shadow-lg group/cover cursor-pointer"
           style={{ backgroundImage: `url(${item?.cover})` }}
@@ -152,7 +152,7 @@ const Header = () => {
     : 0;
 
   return (
-    <header className="bg-black border-b border-white/[0.06] w-full">
+    <header className="bg-black border-b border-white/[0.1] w-full">
       {currentSong.length ? (
         currentSong.map((item) => (
           <SongDisplay
