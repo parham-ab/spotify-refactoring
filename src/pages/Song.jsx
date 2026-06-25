@@ -8,7 +8,7 @@ const Song = ({ item }) => {
   const toggleFavorite = useSpotifyStore((s) => s.toggleFavorite);
   return (
     <div
-      className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer group transition-colors duration-150
+      className={`flex items-center justify-between p-2 rounded-lg cursor-pointer group transition-colors duration-150
         ${item.active ? "bg-white/10" : "hover:bg-white/5"}`}
       onClick={() => playHandle(item.id)}
     >
@@ -30,7 +30,7 @@ const Song = ({ item }) => {
         >
           <span
             className={`text-sm font-medium truncate leading-tight
-              ${item.active ? "text-[#1DB954]" : "text-white"}`}
+              ${item.active ? "text-[#1DB954]" : ""}`}
           >
             {item?.title}
           </span>

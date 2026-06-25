@@ -19,7 +19,7 @@ const Favorites = () => {
   }, [songData]);
 
   return (
-    <div className="flex flex-col h-full overflow-auto bg-black px-3 py-4">
+    <div className="flex flex-col h-full overflow-auto bg-black pr-1 py-4">
       <p className="text-[11px] uppercase tracking-widest text-zinc-300 mb-4 px-2">
         Liked songs
       </p>
@@ -28,7 +28,7 @@ const Favorites = () => {
         favoriteSelections.map((item) => (
           <div
             key={item.id}
-            className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer group transition-colors duration-150
+            className={`flex items-center justify-between p-2 rounded-lg cursor-pointer group transition-colors duration-150
               ${item.active ? "bg-white/10" : "hover:bg-white/5"}`}
           >
             {/* Left: cover + info */}
@@ -49,7 +49,7 @@ const Favorites = () => {
               >
                 <span
                   className={`text-sm font-medium truncate leading-tight
-                  ${item.active ? "text-[#1DB954]" : "text-white"}`}
+                  ${item.active ? "text-[#1DB954]" : ""}`}
                 >
                   {item.title}
                 </span>
@@ -77,8 +77,8 @@ const Favorites = () => {
         <div className="flex flex-col items-center justify-center flex-1 gap-4 text-center pb-10">
           <TbMoodCry className="text-zinc-700 text-5xl" />
           <div>
-            <p className="text-white text-sm font-medium">No liked songs yet</p>
-            <p className="text-zinc-600 text-xs mt-1">
+            <p className=" text-sm font-medium">No liked songs yet</p>
+            <p className="text-zinc-400 text-xs mt-1">
               Songs you like will appear here
             </p>
           </div>

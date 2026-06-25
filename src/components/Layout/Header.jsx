@@ -20,7 +20,7 @@ const SongDisplay = ({
     `${Math.trunc(time / 60)}:${("0" + Math.trunc(time % 60)).slice(-2)}`;
 
   return (
-    <div className="flex items-center gap-6 w-full px-6 py-4">
+    <div className="flex items-center gap-6 w-full sm:p-5 p-2.5">
       {/* Album cover */}
       <div className="hidden sm:block shrink-0">
         <div
@@ -31,19 +31,17 @@ const SongDisplay = ({
           <div className="absolute inset-0 rounded-lg bg-black/50 opacity-0 group-hover/cover:opacity-100 transition-opacity duration-200" />
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/cover:opacity-100 transition-opacity duration-200">
             {item?.isPlaying ? (
-              <BsPauseFill className="text-white text-xl z-10" />
+              <BsPauseFill className="text-xl z-10" />
             ) : (
-              <BsPlayFill className="text-white text-xl ml-0.5 z-10" />
+              <BsPlayFill className="text-xl ml-0.5 z-10" />
             )}
           </div>
         </div>
       </div>
 
       {/* Title + singer */}
-      <div className="flex flex-col min-w-0 w-36 shrink-0">
-        <p className="text-white text-sm font-semibold truncate">
-          {item?.title ?? "—"}
-        </p>
+      <div className="flex flex-col min-w-0 sm:w-36 w-fit shrink-0">
+        <p className=" text-sm font-semibold truncate">{item?.title ?? "—"}</p>
         <p className="text-zinc-500 text-xs mt-0.5 truncate">
           {item?.singer ?? "—"}
         </p>
@@ -53,7 +51,7 @@ const SongDisplay = ({
       <div className="flex flex-col items-center gap-2 flex-1 min-w-0">
         {/* Scrubber */}
         <div className="w-full flex items-center gap-3">
-          <span className="text-[10px] text-zinc-600 tabular-nums shrink-0">
+          <span className="text-[10px] text-zinc-300 tabular-nums shrink-0">
             {isActive ? readableTime(songTimeLive) : "0:00"}
           </span>
           <div className="relative flex-1 h-1 rounded-full bg-zinc-800">
@@ -73,7 +71,7 @@ const SongDisplay = ({
               />
             )}
           </div>
-          <span className="text-[10px] text-zinc-600 tabular-nums shrink-0">
+          <span className="text-[10px] text-zinc-300 tabular-nums shrink-0">
             {isActive && !isNaN(songTimeFull)
               ? readableTime(songTimeFull)
               : "0:00"}
@@ -83,13 +81,13 @@ const SongDisplay = ({
           <div className="flex items-center gap-5">
             <button
               onClick={onPrev}
-              className="text-zinc-500 hover:text-white transition-colors duration-150"
+              className="text-zinc-500 hover: transition-colors duration-150"
             >
               <FaChevronLeft className="text-sm" />
             </button>
             <button
               onClick={() => onPlay(item.id)}
-              className="w-9 h-9 rounded-full bg-white flex items-center justify-center shadow-md cursor-pointer"
+              className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-md cursor-pointer"
             >
               {item?.isPlaying ? (
                 <BsPauseFill className="text-black text-base" />
@@ -99,7 +97,7 @@ const SongDisplay = ({
             </button>
             <button
               onClick={onNext}
-              className="text-zinc-500 hover:text-white transition-colors duration-150"
+              className="text-zinc-500 hover: transition-colors duration-150"
             >
               <FaChevronRight className="text-sm" />
             </button>
